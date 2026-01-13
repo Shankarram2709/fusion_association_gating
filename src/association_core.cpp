@@ -5,7 +5,8 @@
 
 // allocations of tracks and candidates
 static Track_t g_tracks[MAX_TRACKS];
-static AssocCandidate g_candidates[MAX_TRACKS * MAX_MEASUREMENTS];
+static constexpr uint32_t MAX_CANDIDATES = MAX_TRACKS * MAX_MEASUREMENTS;
+static AssocCandidate g_candidates[MAX_CANDIDATES];
 
 // helper for Greedy algo
 void sortCandidates(AssocCandidate* arr, int32_t count) {
@@ -48,6 +49,7 @@ void associationProcessCycle(Measurement_t* meas_list, int32_t num_meas) {
         if (!g_tracks[t].is_active) continue;
 
         for (int32_t m = 0; m < num_meas; m++) {
+            if (candidate_count >= MAX_CANDIDATES) break;
             float32_t cost = AssociationGating::computeCost(&g_tracks[t], &meas_list[m]);
             
             if (cost >= 0.0f) {
@@ -57,10 +59,11 @@ void associationProcessCycle(Measurement_t* meas_list, int32_t num_meas) {
                 candidate_count++;
             }
         }
+        if (candidate_count >= MAX_CANDIDATES) break;
     }
 
     // 3. Global Association (Sorted Greedy)
-    SortCandidates(g_candidates, candidate_count);
+    sortCandidates(g_candidates, candidate_count);
 
     for (int32_t i = 0; i < candidate_count; i++) {
         int32_t t_idx = g_candidates[i].track_idx;

@@ -4,11 +4,10 @@
 #include "fusion_types.h"
 #include <math.h>
 
-#define PI 3.14159265f
-
+static constexpr float32_t PI = 3.14159265f;
 // conceptual Sensor Mount Offsets (from rear axle center)
-#define RADAR_DX 3.8f  
-#define CAM_DX   1.5f  
+static constexpr float32_t RADAR_DX = 3.8f;
+static constexpr float32_t CAM_DX = 1.5f;
 
 class AssociationMath {
 public:
@@ -64,4 +63,4 @@ public:
     }
 };
 
-#endif // ASSICATION_MATH_H
+#endif // ASSOCIATION_MATH_H

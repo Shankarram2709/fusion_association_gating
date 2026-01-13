@@ -91,7 +91,12 @@ bool AssociationGating::hybridCost(const Track_t* t, const MeasConverted* m, con
 
     // Compute Mahalanobis Distance: d^2 = y^T * S^-1 * y
     // diagonal approximation
-    float32_t mahalanobis = (y_tilde[0] * y_tilde[0]) / S[0]; 
+    //fixed to include all 4 dimensions
+    float32_t mahalanobis = 0.0f;
+    mahalanobis += (y_tilde[0] * y_tilde[0]) / S[0]; // X
+    mahalanobis += (y_tilde[1] * y_tilde[1]) / S[5]; // Y
+    mahalanobis += (y_tilde[2] * y_tilde[2]) / S[10]; // Vx
+    mahalanobis += (y_tilde[3] * y_tilde[3]) / S[15]; // Vy
 
     // Log Determinant Penalty: ln(|S|) = 2 * sum(ln(L_ii))
     float32_t log_det = 0.0f;

@@ -5,10 +5,10 @@
 #include <stdbool.h>
 
 // max definitions
-#define MAX_TRACKS 64
-#define MAX_MEASUREMENTS 32
-#define STATE_DIM 4            // [x, y, vx, vy] (accx, accy, yaw, yawRate not defined for simplicity)
-#define COV_DIM 4              // 4x4 Covariance Matrix
+static constexpr uint32_t MAX_TRACKS = 64;
+static constexpr uint32_t MAX_MEASUREMENTS = 32;
+static constexpr uint32_t STATE_DIM = 4;            // [x, y, vx, vy] (accx, accy, yaw, yawRate not defined for simplicity)
+static constexpr uint32_t COV_DIM = 4;              // 4x4 Covariance Matrix
 
 typedef float float32_t;
 
